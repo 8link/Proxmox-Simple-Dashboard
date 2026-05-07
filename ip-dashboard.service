@@ -1,0 +1,15 @@
+[Unit]
+Description=Proxmox IP Dashboard
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ip_dashboard
+ExecStart=/usr/bin/python3 /opt/ip_dashboard/dashboard.py
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

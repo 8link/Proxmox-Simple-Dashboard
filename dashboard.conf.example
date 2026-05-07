@@ -1,0 +1,27 @@
+# Edit the values below, then start the dashboard with one of these options:
+#   Manual run:
+#     cd /opt/ip_dashboard
+#     python3 dashboard.py
+#
+#   systemd service:
+#     cp /opt/ip_dashboard/ip-dashboard.service /etc/systemd/system/ip-dashboard.service
+#     systemctl daemon-reload
+#     systemctl enable --now ip-dashboard.service
+#     systemctl status ip-dashboard.service --no-pager
+#
+# The script reads this file automatically.
+# Environment variables still override these values if you set them manually.
+#
+# Setup: copy this file to dashboard.conf and fill in your values.
+#   cp dashboard.conf.example dashboard.conf
+
+PROXMOX_BASE_URL=https://your-proxmox-host:8006
+PROXMOX_TOKEN_ID=user@pam!token-name
+PROXMOX_TOKEN_SECRET=your-token-secret-here
+PROXMOX_VERIFY_TLS=true
+PROXMOX_API_TIMEOUT=8
+
+DASHBOARD_HOST=0.0.0.0
+DASHBOARD_PORT=8888
+DASHBOARD_REFRESH_SECONDS=15
+DASHBOARD_DEFAULT_IP_FILTER=192.*

@@ -95,7 +95,45 @@
 
 ## 🚀 Quick Start
 
-### 1. Configure
+### ⚡ One-line install (recommended)
+
+Run on any Linux host as root:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/8link/Proxmox-Simple-Dashboard/main/install.sh | bash
+```
+
+The installer will:
+- Download all files to `/opt/simple_dashboard`
+- Create and enable a systemd service (`proxmox-simple-dashboard`)
+- Remind you to fill in your Proxmox credentials
+
+**Uninstall:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/8link/Proxmox-Simple-Dashboard/main/install.sh | bash -s -- --uninstall
+```
+
+---
+
+### 🔧 Manual install
+
+#### 1. Download files
+
+```bash
+mkdir -p /opt/simple_dashboard
+cd /opt/simple_dashboard
+curl -fsSL https://raw.githubusercontent.com/8link/Proxmox-Simple-Dashboard/main/dashboard.py -o dashboard.py
+curl -fsSL https://raw.githubusercontent.com/8link/Proxmox-Simple-Dashboard/main/favicon.svg -o favicon.svg
+curl -fsSL https://raw.githubusercontent.com/8link/Proxmox-Simple-Dashboard/main/dashboard.conf.example -o dashboard.conf.example
+```
+
+#### 2. Configure
+
+```bash
+cp dashboard.conf.example dashboard.conf
+nano dashboard.conf
+```
 
 Edit `dashboard.conf` with your Proxmox cluster details:
 
@@ -113,24 +151,22 @@ DASHBOARD_DEFAULT_IP_FILTER=192.*
 
 > **Note:** Environment variables override config file values.
 
-### 2. Run
+#### 3. Run
 
 **Manual:**
 
 ```bash
-cd /opt/ip_dashboard
+cd /opt/simple_dashboard
 python3 dashboard.py
 ```
 
 **As a systemd service:**
 
 ```bash
-cp ip-dashboard.service /etc/systemd/system/
-systemctl daemon-reload
-systemctl enable --now ip-dashboard.service
+curl -fsSL https://raw.githubusercontent.com/8link/Proxmox-Simple-Dashboard/main/install.sh | bash
 ```
 
-### 3. Open
+#### 4. Open
 
 Navigate to `http://your-host:8888` in your browser.
 

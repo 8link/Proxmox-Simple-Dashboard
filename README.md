@@ -203,16 +203,16 @@ Navigate to `http://your-host:8888` in your browser.
 
 ```
 ┌──────────────┐     HTTP/API      ┌──────────────────┐
-│   Browser     │ ◀──────────────▶ │  dashboard.py     │
-│               │   HTML / JSON    │                    │
-└──────────────┘                   │  ┌──────────────┐ │
-                                   │  │ Config loader │ │
-                                   │  └──────┬───────┘ │
-                                   │         │         │
-                                   │  ┌──────▼───────┐ │
+│   Browser     │ ◀──────────────▶│   dashboard.py   │
+│               │   HTML / JSON    │                  │
+└──────────────┘                   │  ┌──────────────┐│
+                                   │  │ Config loader││
+                                   │  └──────┬───────┘│
+                                   │         │        │
+                                   │  ┌──────▼───────┐│
                                    │  │ Proxmox API  │──────▶ Proxmox Cluster
                                    │  │ client       │ API     (VMs, CTs, IPs)
-                                   │  └──────────────┘ │
+                                   │  └──────────────┘│
                                    └──────────────────┘
 ```
 

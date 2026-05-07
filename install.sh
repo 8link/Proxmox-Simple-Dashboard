@@ -60,8 +60,8 @@ download() {
   fi
 }
 
-host_ip() {
-  hostname -I 2>/dev/null | awk '{print $1}' || echo "localhost"
+host_ips() {
+  hostname -I 2>/dev/null | tr ' ' '\n' | grep -v '^$' || echo "localhost"
 }
 
 # ── Install ───────────────────────────────────────────────────────────────────
@@ -151,7 +151,9 @@ EOF
   echo -e "  ${BOLD}  systemctl start ${SERVICE_NAME}${RESET}"
   blank
   echo -e "  Dashboard will be available at:"
-  echo -e "  ${CYAN}${BOLD}  http://$(host_ip):${DASHBOARD_PORT}${RESET}"
+  while IFS= read -r ip; do
+    echo -e "  ${CYAN}${BOLD}  http://${ip}:${DASHBOARD_PORT}${RESET}"
+  done < <(host_ips)
   blank
   echo -e "  Useful commands:"
   echo -e "${DIM}  systemctl status  ${SERVICE_NAME}${RESET}"

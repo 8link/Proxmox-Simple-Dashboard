@@ -11,6 +11,10 @@
 
 *Single-file · Dark analytics theme · Real-time refresh · Wildcard filters*
 
+<br>
+
+![Proxmox Simple Dashboard screenshot](dashboard.jpg)
+
 </div>
 
 ---

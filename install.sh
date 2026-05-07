@@ -61,7 +61,11 @@ download() {
 }
 
 host_ips() {
-  hostname -I 2>/dev/null | tr ' ' '\n' | grep -v '^$' || echo "localhost"
+  ip -4 addr show 2>/dev/null \
+    | awk '/inet / {print $2}' \
+    | cut -d/ -f1 \
+    | grep -v '^127\.' \
+    || echo "localhost"
 }
 
 # ── Install ───────────────────────────────────────────────────────────────────

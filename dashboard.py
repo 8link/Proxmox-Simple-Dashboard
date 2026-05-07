@@ -64,7 +64,7 @@ INDEX_HTML = """<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Proxmox VM Dashboard</title>
+  <title>Proxmox Simple Dashboard</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
     :root {
@@ -889,7 +889,7 @@ INDEX_HTML = """<!doctype html>
           <img src="/favicon.svg" alt="" class="header-logo" width="36" height="36">
           <div>
             <p class="eyebrow">Proxmox cluster - __CLUSTER_NAME__</p>
-            <h1 class="title">Simple VM status dashboard</h1>
+            <h1 class="title">Proxmox Simple Dashboard</h1>
           </div>
         </div>
         <div class="meta">

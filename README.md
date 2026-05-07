@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🖥️ Proxmox IP Dashboard
+# 🖥️ Proxmox Simple Dashboard
 
 **A lightweight, zero-dependency Python dashboard for monitoring Proxmox cluster VMs and containers.**
 

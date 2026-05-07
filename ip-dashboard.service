@@ -1,5 +1,5 @@
 [Unit]
-Description=Proxmox IP Dashboard
+Description=Proxmox Simple Dashboard
 Wants=network-online.target
 After=network-online.target
 

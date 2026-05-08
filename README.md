@@ -139,7 +139,7 @@ Edit `dashboard.conf` with your Proxmox cluster details:
 
 ```ini
 PROXMOX_BASE_URL=https://your-proxmox-host:8006
-PROXMOX_TOKEN_ID=user@pam!token-name
+PROXMOX_TOKEN_ID=pulse-monitor@pam!ip_dash
 PROXMOX_TOKEN_SECRET=your-token-secret
 PROXMOX_VERIFY_TLS=false
 
@@ -169,6 +169,61 @@ curl -fsSL https://raw.githubusercontent.com/8link/Proxmox-Simple-Dashboard/main
 #### 4. Open
 
 Navigate to `http://your-host:8888` in your browser.
+
+---
+
+## 🔑 Creating a Proxmox API User and Token
+
+<h3>Step 1 — Create a dedicated user</h3>
+<p>Datacenter → Permissions → Users → <strong>Add</strong></p>
+
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>User name</td><td><code>pulse-monitor</code></td></tr>
+<tr><td>Realm</td><td><code>pam</code></td></tr>
+<tr><td>Password</td><td><em>(set anything, token auth won't use it)</em></td></tr>
+<tr><td>Enabled</td><td>✓</td></tr>
+</table>
+
+<h3>Step 2 — Assign read-only role</h3>
+<p>Datacenter → Permissions → <strong>Add → User Permission</strong></p>
+
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>Path</td><td><code>/</code></td></tr>
+<tr><td>User</td><td><code>pulse-monitor@pam</code></td></tr>
+<tr><td>Role</td><td><code>PVEAuditor</code></td></tr>
+<tr><td>Propagate</td><td>✓</td></tr>
+</table>
+
+<h3>Step 3 — Create API Token</h3>
+<p>Datacenter → Permissions → API Tokens → <strong>Add</strong></p>
+
+<table>
+<tr><th>Field</th><th>Value</th></tr>
+<tr><td>User</td><td><code>pulse-monitor@pam</code></td></tr>
+<tr><td>Token ID</td><td><code>ip_dash</code></td></tr>
+<tr><td>Privilege Separation</td><td>☐ unchecked</td></tr>
+<tr><td>Expire</td><td>never</td></tr>
+</table>
+
+<blockquote>
+<strong>Copy the token secret immediately</strong> — Proxmox shows it only once.
+</blockquote>
+
+<p>Token will look like:</p>
+<pre><code>pulse-monitor@pam!ip_dash=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></pre>
+
+<h3>Step 4 — Fill in the config</h3>
+<pre><code>PROXMOX_BASE_URL=https://YOUR_PROXMOX_IP:8006
+PROXMOX_TOKEN_ID=pulse-monitor@pam!ip_dash
+PROXMOX_TOKEN_SECRET=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+PROXMOX_VERIFY_TLS=false
+PROXMOX_API_TIMEOUT=8</code></pre>
+
+<blockquote>
+The <code>PVEAuditor</code> role gives read-only access to nodes, VMs, and containers — enough for status and IP checking, with no ability to start/stop/delete anything.
+</blockquote>
 
 ---
 
@@ -281,7 +336,6 @@ curl http://127.0.0.1:8888/api/vms
 - Rotate tokens if exposed outside the host
 - Consider enabling TLS verification (`PROXMOX_VERIFY_TLS=true`) in production
 - The dashboard UI has no built-in authentication — restrict access via network/firewall rules
-- For security workflows, use the [golden paths](https://github.com/lsy-central/lsy-security-golden-path)
 
 ---
 
